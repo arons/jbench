@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="ci" name="DB_Bench">
+	
+    <property file="build.properties" />
+    <property file="build-sample.properties" />
+    <property file="${user.home}/lo-build.properties" />
+        
+    <property name="dir.buildfile" value="."/>
+    <property name="dir.jarfile" value="target"/>
+    
+	<path id="compiletime-deps">
+    </path>
+	
+    <target name="ci" description="ci">
+        <mkdir dir="target/classes"/>
+        <delete>
+            <fileset dir="target/classes" includes="**" />
+        </delete>
+        <javac srcdir="src/main"
+         destdir="target/classes"
+         classpathref="compiletime-deps"
+         source="17"
+         target="17"
+         debug="on" encoding="UTF-8"
+         optimize="on"
+         includeAntRuntime="false"/>
+        <copy todir="target/classes">
+            <fileset dir="src/main" includes="**/*" excludes="**/package.html **/*.java"/>
+        </copy>
+    </target>
+	
+	
+    <target name="dist" depends="ci"  description="Builds jar">
+            <echo>Creating jar distribution</echo>   
+  
+            <!-- jar -->   
+            <jar destfile="target/dist/jbench.jar"
+                 basedir="target/classes"
+                 includes="**"
+                 >
+            </jar>
+        
+    </target>
+
+</project>

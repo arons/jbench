@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
   build-jar-job:
-    name: 'Build JAR'
+    name: 'CI'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

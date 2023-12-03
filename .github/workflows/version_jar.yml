@@ -19,7 +19,7 @@ jobs:
           distribution: 'temurin'
           architecture: x64
       - name: Run the Ant ci target
-        run: ant -noinput -buildfile build.xml ci
+        run: ant -noinput -buildfile build.xml dist
       - uses: actions/upload-artifact@v3
         with:
           name: jbench.jar

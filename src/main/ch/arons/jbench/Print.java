@@ -5,7 +5,7 @@ import java.util.Date;
 public class Print {
     
     public static void  logVersion() {
-        System.out.println("jbench 1.0");
+        System.out.println("jbench "+Config.VERSION);
     }
     
     public static void  logTime() {

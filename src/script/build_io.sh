@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export JAVA_HOME=/home/arons/prog/java/graalvm-jdk-21.0.1+12.1/
+export JAVA_HOME=/home/arons/prog/java/gjdk-21/
 
 
 mkdir -p ../../target/classes

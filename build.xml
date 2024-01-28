@@ -3,11 +3,9 @@
 	
     <property file="build.properties" />
     <property file="build-sample.properties" />
-    <property file="${user.home}/lo-build.properties" />
-        
-    <property name="dir.buildfile" value="."/>
-    <property name="dir.jarfile" value="target"/>
-    
+	
+	<property file="${user.home}/user.properties" />
+	
 	<path id="compiletime-deps">
     </path>
 	
@@ -32,14 +30,27 @@
 	
     <target name="dist" depends="ci"  description="Builds jar">
             <echo>Creating jar distribution</echo>   
-  
             <!-- jar -->   
             <jar destfile="target/dist/jbench.jar"
                  basedir="target/classes"
                  includes="**"
+            	 manifest="src/mainfest/MANIFEST.MF"
                  >
             </jar>
-        
+    </target>
+	
+	<target name="native" depends="dist"  description="create native app">
+        <mkdir dir="target/bin"/>
+        <echo>Creating bin</echo> 
+		<exec command="/home/arons/prog/java/gjdk-21/bin/native-image">
+			<arg value="--gc=G1"/>
+			<arg value="--strict-image-heap"/>
+			<arg value="-march=native"/>
+			<arg value="-Ob"/>
+			<arg value="-jar"/>
+			<arg value="target/dist/jbench.jar"/>
+			<arg value="target/bin/jbench"/>
+		</exec>
     </target>
 
 </project>

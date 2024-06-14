@@ -18,7 +18,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
       - name: Run the Ant ci target
-        run: ./src/script/build_io.sh
+        run: ./src/script/build_github.sh
       - uses: actions/upload-artifact@v3
         with:
           name: jbench

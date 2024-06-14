@@ -53,7 +53,7 @@ public class IO {
         System.out.println(" block_size="+blockSizeKb+" (kb)");
         System.out.println(" numOfBlocks="+numBlocks);
         
-        System.out.println(" fileSize="+ ((numBlocks*blockSizeKb*Config.KILOBYTE) / Config.MEGABYTE ));
+        System.out.println(" fileSize="+ ((numBlocks*blockSizeKb*Config.KILOBYTE) / Config.MEGABYTE )+" mb");
         
         File localDir = new File("./");
         File testFile = new File(localDir, "testdata.tmp");

@@ -2,7 +2,7 @@ name: version jar
 on:
   push:
     tags:
-      - "v*"
+      - "vj*"
     branches:
       - 'master'
 

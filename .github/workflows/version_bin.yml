@@ -5,6 +5,9 @@ on:
       - "v*"
     branches:
       - 'master'
+permissions:
+  contents: write
+              
 jobs:
   build-bin-job:
     name: 'Version Bin'
@@ -19,7 +22,6 @@ jobs:
           native-image-job-reports: 'true'
       - name: Run Graalvm to generate bin
         run: ./src/script/build_github.sh
-        
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1

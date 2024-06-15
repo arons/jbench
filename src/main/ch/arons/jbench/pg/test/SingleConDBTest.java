@@ -25,14 +25,20 @@ public abstract class SingleConDBTest extends DBTest {
             e.printStackTrace(); 
             return;
         } finally {
-            if (c != null) try { c.close(); } catch (SQLException e) {}
+            if (c != null) {
+                try { 
+                    c.close(); 
+                } catch (SQLException e) { 
+                    //do nothing
+                }
+            }
         }        
     }
 
     /**
      * Implementation can do SQL with the connection.
+     * 
      * @param c a fresh db connection
-     * @throws SQLException
      */
     protected abstract void test(Connection c) throws SQLException;
     

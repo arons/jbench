@@ -5,6 +5,9 @@ import java.sql.SQLException;
 
 import ch.arons.jbench.pg.DB;
 
+/**
+ * Suer class for tests.
+ */
 public abstract class DBTest {
     protected final DB db;
 

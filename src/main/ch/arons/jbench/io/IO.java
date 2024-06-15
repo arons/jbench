@@ -10,7 +10,7 @@ import ch.arons.jbench.Config;
 import ch.arons.jbench.Print;
 
 /**
- * 
+ * Performs write/read io test.
  */
 public class IO {
 
@@ -23,6 +23,9 @@ public class IO {
         System.err.println(" numOfBlocks=256");
     }
 
+    /**
+     * Main method.
+     */
     public static void main(String[] args) {
 
         int blockSizeKb = 8;
@@ -35,16 +38,16 @@ public class IO {
             }
             
             if ( args[i].startsWith("block_size=") ) {
-                blockSizeKb = Integer.parseInt( args[i].replace("block_size=","") );
+                blockSizeKb = Integer.parseInt( args[i].replace("block_size=", "") );
             } 
             
             if ( args[i].startsWith("numOfBlocks=") ) {
-                numBlocks = Integer.parseInt(  args[i].replace("numOfBlocks=","") );
+                numBlocks = Integer.parseInt(  args[i].replace("numOfBlocks=", "") );
             }
             
         }
         
-        if( (numBlocks*blockSizeKb*Config.KILOBYTE) / Config.MEGABYTE  > 2 * 1024 ) {
+        if ( (numBlocks * blockSizeKb * Config.KILOBYTE) / Config.MEGABYTE  > 2 * 1024 ) {
             System.out.println("File cannot be bigger than 2GB");
             System.exit(0);
         }
@@ -53,14 +56,13 @@ public class IO {
         Print.logCurrentSystem();
         
         System.out.println("Start IO test");
-        System.out.println(" block_size="+blockSizeKb+" (kb)");
-        System.out.println(" numOfBlocks="+numBlocks);
+        System.out.println(" block_size=" + blockSizeKb + " (kb)");
+        System.out.println(" numOfBlocks=" + numBlocks);
         
-        System.out.println(" fileSize="+ ((numBlocks*blockSizeKb*Config.KILOBYTE) / Config.MEGABYTE )+" mb");
+        System.out.println(" fileSize=" + ( (numBlocks * blockSizeKb * Config.KILOBYTE) / Config.MEGABYTE ) + " mb" );
         
         File localDir = new File("./");
         File testFile = new File(localDir, "testdata.tmp");
-
 
         System.out.println("Location: " + localDir.getAbsolutePath());
         System.out.println("Total size : " + localDir.getTotalSpace() / Config.MEGABYTE + " mb");
@@ -86,7 +88,7 @@ public class IO {
         byte[] blockArr = new byte[blockSize];
         for (int b = 0; b < blockArr.length; b++) {
             if (b % 2 == 0) {
-                blockArr[b] = (byte)rd.nextInt();
+                blockArr[b] = (byte) rd.nextInt();
             }
         }
 

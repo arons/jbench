@@ -29,6 +29,24 @@
     </target>
 	
 	
+	<target name="checkstyle"  description="checkstyle">
+		<path id="execution.lib.path">
+            <fileset dir="./lib/checkstyle" includes="*.jar"/>
+        </path>
+		
+		<!-- loading ant task -->
+        <taskdef name="checkstyle"
+             classname="com.puppycrawl.tools.checkstyle.ant.CheckstyleAntTask"
+             classpathref="execution.lib.path"
+             />
+		
+		<checkstyle config="checkstyle.xml"
+                    failOnViolation="true">
+            <fileset dir="src/main" includes="**/*.java"/>
+			<formatter type="plain"/>
+        </checkstyle>
+	</target>
+	
     <target name="dist" depends="ci"  description="Builds jar">
             <echo>Creating jar distribution</echo>   
             <!-- jar -->   

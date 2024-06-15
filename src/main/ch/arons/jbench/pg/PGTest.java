@@ -7,7 +7,9 @@ import org.postgresql.Driver;
 
 import ch.arons.jbench.pg.test.PGParameterCheck;
 
-
+/**
+ * Perform pg tests.
+ */
 public class PGTest {
 
     

@@ -1,16 +1,16 @@
 package ch.arons.jbench.pg.test;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import ch.arons.jbench.pg.DB;
 
+/**
+ * Print most common parameter to be checked.
+ */
 public class PGParameterCheck {
     private final DB db;
     
@@ -18,27 +18,30 @@ public class PGParameterCheck {
         this.db = db;
     }
     
-	public void checks() {
-		System.out.println("ParameterCheck start "+(new Date()));
-		try(Connection conn = db.getConnection()){
-		    pgversion(conn);
-		    pgparameters(conn);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-		    System.out.println("ParameterCheck end "+(new Date()));
+    /**
+     * perform the check.
+     */
+    public void checks() {
+        System.out.println("ParameterCheck start " + (new Date()));
+        try (Connection conn = db.getConnection()) {
+            pgversion(conn);
+            pgparameters(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            System.out.println("ParameterCheck end " + (new Date()));
         }
-	}
-	
-	
-	private void pgversion(Connection conn) {
-        try(PreparedStatement ps = conn.prepareStatement(" SELECT version() ")){
+    }
+
+
+    private void pgversion(Connection conn) {
+        try (PreparedStatement ps = conn.prepareStatement(" SELECT version() ")) {
             
             ResultSet rs = ps.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 String version = rs.getString(1);
                 System.out.printf("Version: %s\n", version);
-            }else {
+            } else {
                 System.err.printf("Error getting pg version\n");
             }
             rs.close();
@@ -48,11 +51,11 @@ public class PGParameterCheck {
             System.err.printf("Error getting pg version: %s\n", e.getMessage()); 
         }
     }
-	
-	private void pgparameters(Connection conn) {
-	    
-	    System.out.printf("Parameters:\n");
-        try(PreparedStatement ps = conn.prepareStatement("""
+
+    private void pgparameters(Connection conn) {
+
+        System.out.printf("Parameters:\n");
+        try (PreparedStatement ps = conn.prepareStatement("""
 select 
 name, 
 setting,
@@ -79,16 +82,16 @@ where name in (
 'track_activities'
 )
 order by name
-                """)){
+                """)) {
             
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 String name = rs.getString("name");
                 String setting = rs.getString("setting");
-                String short_desc = rs.getString("short_desc");
+                String shortDesc = rs.getString("short_desc");
                 
                         
-                System.out.printf("%40s | %10s | %s\n", name, setting, short_desc);
+                System.out.printf("%40s | %10s | %s\n", name, setting, shortDesc);
             }
             rs.close();
             
@@ -97,7 +100,7 @@ order by name
             System.err.printf("Error getting pg parameters: %s\n", e.getMessage()); 
         }
     }
-	
-	
+
+
 }
 

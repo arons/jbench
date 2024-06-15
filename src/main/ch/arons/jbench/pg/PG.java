@@ -5,11 +5,14 @@ import java.util.Date;
 
 import ch.arons.jbench.utils.StringUtils;
 
+/**
+ * Main test class for postgres tests.
+ */
 public class PG {
     
     private static void  logCurrentSystem() {
         System.out.printf("Host jvm processors: %d \n", Runtime.getRuntime().availableProcessors());
-        System.out.printf("Total mem for JVM (MB): %d " , (Runtime.getRuntime().totalMemory() / (1024*1024)));
+        System.out.printf("Total mem for JVM (MB): %d ", (Runtime.getRuntime().totalMemory() / (1024 * 1024)));
         System.out.printf("\n");
     }
     
@@ -18,7 +21,9 @@ public class PG {
         System.err.println("options:");
     }
     
-    
+    /**
+     * main method. 
+     */
     public static void main(String[] args) {
         
         if (args.length < 4) {
@@ -39,16 +44,16 @@ public class PG {
         
         
         String command = null;
-        if(args.length > 4) {
+        if ( args.length > 4 ) {
             command = args[4];
         }
         
         String additional = null;
-        if(args.length > 5) {
+        if ( args.length > 5 ) {
             additional = args[5];
         }
         
-        if(StringUtils.isEmpty(command) || "help".equalsIgnoreCase(command) ) {
+        if ( StringUtils.isEmpty(command) || "help".equalsIgnoreCase(command) ) {
             printHelp();
             System.exit(0);
         }
@@ -56,27 +61,27 @@ public class PG {
         logCurrentSystem();
         
         
-        System.out.println("Start: "+new Date());
+        System.out.println("Start: " + new Date());
         try {
             PGTest pgtest = new PGTest(url, user, pw);
             pgtest.setAdditional(additional);
             
-            if("params".equalsIgnoreCase(command)) {
+            if ("params".equalsIgnoreCase(command)) {
                 pgtest.params();
                 return;
             }
             
-            if("prepare".equalsIgnoreCase(command)) {
+            if ("prepare".equalsIgnoreCase(command)) {
                 pgtest.prepare();
                 return;
             }
             
-            if("clean".equalsIgnoreCase(command)) {
+            if ("clean".equalsIgnoreCase(command)) {
                 pgtest.clean();
                 return;
             }
             
-            if("test".equalsIgnoreCase(command)) {
+            if ("test".equalsIgnoreCase(command)) {
                 pgtest.run();
                 return;
             }
@@ -85,6 +90,6 @@ public class PG {
             e.printStackTrace();
         }
         
-        System.out.println("End: "+new Date());
+        System.out.println("End: " + new Date());
     }
 }

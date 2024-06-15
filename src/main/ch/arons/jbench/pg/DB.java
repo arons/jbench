@@ -5,17 +5,23 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * Store connection information.
+ */
 public class DB {
+    
     private final String url;
     private final Properties dbprops = new Properties();
     
-    
+    /**
+     * create connection to db.
+     */
     public DB(String url, String user, String pw) {
         this.url = url;
         dbprops.setProperty("user", user);
         dbprops.setProperty("password", pw);
         
-        /**
+        /*
          * JDBC batch API, that is PreparedStatement#addBatch(), enables the driver to send multiple "query executions" in a single network round trip. 
          * The current implementation, however, would still split large batches into smaller ones to avoid transmission control protocol (TCP) deadlock.
          * 
@@ -29,8 +35,8 @@ public class DB {
          * 
          * https://jdbc.postgresql.org/documentation/head/connect.html?spm=a2c65.11461447.0.0.717db801z6JtyG
          */
-    	dbprops.setProperty("reWriteBatchedInserts", "true");
-        	
+        dbprops.setProperty("reWriteBatchedInserts", "true");
+
     }
     
     public Connection getConnection() throws SQLException {

@@ -4,6 +4,9 @@ import ch.arons.jbench.info.Info;
 import ch.arons.jbench.io.IO;
 import ch.arons.jbench.pg.PG;
 
+/**
+ * Main entry class.
+ */
 public class Main {
 
     private static void printHelp() {
@@ -14,35 +17,37 @@ public class Main {
         System.err.println(" pg   :  performs postgres tests");
     }
 
+    /**
+     * main method.
+     */
     public static void main(String[] args) {
         Print.logVersion();
         
         
-        if(args == null || args.length < 1) {
+        if (args == null || args.length < 1) {
             printHelp();
             System.exit(0);
         }
 
-        if("-h".equals(args[0]) || "--help".equals(args[0])) {
+        if ("-h".equals(args[0]) || "--help".equals(args[0])) {
             Info.main(args);
             System.exit(0);
         }
         
-        if("info".equals(args[0])) {
+        if ("info".equals(args[0])) {
             Info.main(args);
             System.exit(0);
         }
         
-        if("io".equals(args[0])) {
+        if ("io".equals(args[0])) {
             IO.main(args);
             System.exit(0);
         }
         
-        if("pg".equals(args[0])) {
+        if ("pg".equals(args[0])) {
             PG.main(args);
             System.exit(0);
         }
-        
         
         printHelp();
         System.exit(0);

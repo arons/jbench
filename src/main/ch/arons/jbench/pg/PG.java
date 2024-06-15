@@ -61,35 +61,34 @@ public class PG {
         logCurrentSystem();
         
         
+        
         System.out.println("Start: " + new Date());
+        long startMs = System.currentTimeMillis();
         try {
             PGTest pgtest = new PGTest(url, user, pw);
             pgtest.setAdditional(additional);
             
             if ("params".equalsIgnoreCase(command)) {
                 pgtest.params();
-                return;
             }
             
             if ("prepare".equalsIgnoreCase(command)) {
                 pgtest.prepare();
-                return;
             }
             
             if ("clean".equalsIgnoreCase(command)) {
                 pgtest.clean();
-                return;
             }
             
             if ("test".equalsIgnoreCase(command)) {
                 pgtest.run();
-                return;
             }
             
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+        long endMs = System.currentTimeMillis();
         System.out.println("End: " + new Date());
+        System.out.printf("Duration s: %s", (endMs - startMs) / 1000);
     }
 }

@@ -7,6 +7,7 @@ import org.postgresql.Driver;
 
 import ch.arons.jbench.pg.data.DataClean;
 import ch.arons.jbench.pg.data.DataCreate;
+import ch.arons.jbench.pg.test.BlobBandwidth;
 import ch.arons.jbench.pg.test.DBTest;
 import ch.arons.jbench.pg.test.OpenLatency;
 import ch.arons.jbench.pg.test.PGParameterCheck;
@@ -53,7 +54,8 @@ public class PGTest {
             new PrintInfo(db),
             new OpenLatency(db),
             new Statistics(db),
-            new TrivialQuery(db)
+            new TrivialQuery(db),
+            new BlobBandwidth(db)
         };
         for (DBTest t : tests) {
             t.test();

@@ -7,7 +7,10 @@ import org.postgresql.Driver;
 
 import ch.arons.jbench.pg.data.DataClean;
 import ch.arons.jbench.pg.data.DataCreate;
+import ch.arons.jbench.pg.test.DBTest;
+import ch.arons.jbench.pg.test.OpenLatency;
 import ch.arons.jbench.pg.test.PGParameterCheck;
+import ch.arons.jbench.pg.test.PrintInfo;
 
 /**
  * Perform pg tests.
@@ -40,9 +43,17 @@ public class PGTest {
         (new DataClean(db)).run();
     }
 
+    /**
+     * Main method.
+     */
     public void run() {
-        // TODO Auto-generated method stub
-        
+        DBTest[] tests = {
+            new PrintInfo(db),
+            new OpenLatency(db),
+        };
+        for (DBTest t : tests) {
+            t.test();
+        }
     }
 
 

@@ -28,8 +28,8 @@ public class LargeTable extends SingleConDBTest {
         try (PreparedStatement ps = c.prepareStatement("select * from jbench.tbbm_child where data3 between ? and ? fetch first 1000 rows only");) {
             
             long start = System.currentTimeMillis();
-            ps.setDate(1, new Date(1980-1900, 1-1, 1));
-            ps.setDate(2, new Date(1980-1900, 12-1, 31));
+            ps.setDate(1, new Date(1980 - 1900, 1 - 1, 1));
+            ps.setDate(2, new Date(1980 - 1900, 12 - 1, 31));
             ps.setFetchSize(256);
             ResultSet rs = ps.executeQuery();
             long duration = System.currentTimeMillis() - start;

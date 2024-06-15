@@ -17,5 +17,19 @@ done
 
 javac -cp "${LIB_LIST}" -sourcepath ../main/ ../main/ch/arons/jbench/Main.java -d ../../target/classes
 
-native-image  -cp "${LIB_LIST}" ch.arons.jbench.Main -o ../../target/bin/jbench
-
+$JAVA_HOME/bin/native-image \
+    -H:+ReportExceptionStackTraces \
+    -J-Dclojure.spec.skip-macros=true \
+    -J-Dclojure.compiler.direct-linking=true \
+    -H:ReflectionConfigurationFiles=reflectconfig.json \
+    --initialize-at-build-time  \
+    -H:Log=registerResource: \
+    "-H:EnableURLProtocols=http,https" \
+    "--enable-all-security-services" \
+    "-H:+JNI" \
+    --verbose \
+    --no-fallback \
+    --no-server \
+    --report-unsupported-elements-at-runtime \
+    "-H:IncludeResources=org/hsqldb/.*\.properties" "-H:IncludeResources=org/hsqldb/.*\.sql" \
+    -cp "${LIB_LIST}" ch.arons.jbench.Main -o ../../target/bin/jbench

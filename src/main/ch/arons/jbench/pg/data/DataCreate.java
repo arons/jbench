@@ -25,6 +25,9 @@ import ch.arons.jbench.pg.DB;
  * tbbm_lob
  * tbbm_parent = p_number rows
  * tbbm_child  = c_number * p_number rows
+ * 
+ * tbbm_child is 1M row.
+ * 
  * </p>
  */
 public class DataCreate {
@@ -81,8 +84,8 @@ create table jbench.tbbm_parent (
 create table jbench.tbbm_child (
   id bigint not null,
   parent_id bigint not null,
-  data1 integer null,
-  data2 integer null,
+  data1 bigint null,
+  data2 bigint null,
   data3 date    null,
   data4 text null,
   constraint pk_bmchld primary key (id),
@@ -193,10 +196,9 @@ CREATE TEMPORARY TABLE IF NOT EXISTS tbbm_tmp_intarray(
             try (PreparedStatement ps = conn.prepareStatement("select count(*) from jbench.tbbm_child")) {
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    System.out.printf("Created %d rows into tbbm_child\n", rs.getInt(1));
+                    System.out.printf("Created %d rows into jbench.tbbm_child\n", rs.getInt(1));
                 }    
             }
-                    
             
             System.out.printf("You can now start benchmark\n");
         } catch (SQLException e) {

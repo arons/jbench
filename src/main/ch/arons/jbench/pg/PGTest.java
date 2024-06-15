@@ -9,6 +9,7 @@ import ch.arons.jbench.pg.data.DataClean;
 import ch.arons.jbench.pg.data.DataCreate;
 import ch.arons.jbench.pg.test.BlobBandwidth;
 import ch.arons.jbench.pg.test.DBTest;
+import ch.arons.jbench.pg.test.LargeTable;
 import ch.arons.jbench.pg.test.OpenLatency;
 import ch.arons.jbench.pg.test.PGParameterCheck;
 import ch.arons.jbench.pg.test.PrintInfo;
@@ -55,7 +56,8 @@ public class PGTest {
             new OpenLatency(db),
             new Statistics(db),
             new TrivialQuery(db),
-            new BlobBandwidth(db)
+            new BlobBandwidth(db),
+            new LargeTable(db)
         };
         for (DBTest t : tests) {
             t.test();

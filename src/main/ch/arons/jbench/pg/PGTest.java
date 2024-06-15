@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 import org.postgresql.Driver;
 
+import ch.arons.jbench.pg.data.DataClean;
+import ch.arons.jbench.pg.data.DataCreate;
 import ch.arons.jbench.pg.test.PGParameterCheck;
 
 /**
@@ -30,14 +32,12 @@ public class PGTest {
         t.checks();
     }
 
-    public void prepare() {
-        // TODO Auto-generated method stub
-        
+    public void prepare() throws SQLException {
+        (new DataCreate(db)).run();
     }
 
-    public void clean() {
-        // TODO Auto-generated method stub
-        
+    public void clean() throws SQLException {
+        (new DataClean(db)).run();
     }
 
     public void run() {

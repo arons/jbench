@@ -12,9 +12,7 @@ mkdir -p ../../target/bin
 CP_SEPARATOR=":"
 
 LIB_LIST="../../target/classes/"
-for l in $(find ../../lib -type f -name '*.jar'); do
-    LIB_LIST="${LIB_LIST}${CP_SEPARATOR}${l}"
-done
+LIB_LIST="${LIB_LIST}${CP_SEPARATOR}../../lib/postgres/postgresql-42.7.3.jar"
 
 $JAVA_HOME/bin/javac -cp "${LIB_LIST}" -sourcepath ../main/ ../main/ch/arons/jbench/Main.java -d ../../target/classes
 

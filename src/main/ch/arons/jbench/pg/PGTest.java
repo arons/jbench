@@ -44,7 +44,7 @@ public class PGTest {
     }
 
     /**
-     * Main method.
+     * run tests on db.
      */
     public void run() {
         DBTest[] tests = {

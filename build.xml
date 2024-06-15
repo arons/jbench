@@ -49,4 +49,13 @@
         </checkstyle>
     </target>
 	
+    <target name="dist" depends="ci"  description="Builds jar">
+          <echo>Creating jar distribution</echo>   
+          <!-- jar -->   
+          <jar destfile="target/dist/jbench.jar"
+               basedir="target/classes"
+               includes="**"
+               manifest="src/mainfest/MANIFEST.MF" >
+          </jar>
+    </target>
 </project>

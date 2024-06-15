@@ -1,12 +1,16 @@
 package ch.arons.jbench;
 
+import ch.arons.jbench.info.Info;
+import ch.arons.jbench.io.IO;
+
 public class Main {
 
     private static void printHelp() {
         Print.logVersion();
-        System.err.println("Usage: jbench (io) ");
+        System.err.println("Usage: jbench (info,io) ");
         System.err.println("commands:");
-        System.err.println(" io :  performs file system read/write test");
+        System.err.println(" info :  print some system info");
+        System.err.println(" io   :  performs file system read/write test");
     }
 
     public static void main(String[] args) {
@@ -23,6 +27,9 @@ public class Main {
             }
         }
         
+        if("info".equals(args[0])) {
+            Info.main(args);
+        }
         
         if("io".equals(args[0])) {
             IO.main(args);

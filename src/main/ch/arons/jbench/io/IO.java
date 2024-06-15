@@ -1,10 +1,13 @@
-package ch.arons.jbench;
+package ch.arons.jbench.io;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.text.DecimalFormat;
 import java.util.Random;
+
+import ch.arons.jbench.Config;
+import ch.arons.jbench.Print;
 
 /**
  * 

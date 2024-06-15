@@ -1,12 +1,12 @@
 # jbench
 
 
-###download latest version
+### download latest version
 ```
 curl -L  -o jbench  'https://github.com/arons/jbench/releases/download/v_1.0b/jbench'  && chmod 775 jbench
 ```
 
-###help
+### help
 ```
 $ ./jbench -h
 jbench 1.0b
@@ -17,13 +17,13 @@ commands:
  pg   :  performs postgres tests
 ```
 
-###get system info
+### get system info
 ```
 ./jbench info
 ```
 
 
-###test local disk io
+### test local disk io
 ```
 $ ./jbench io -h
 jbench 1.0b
@@ -34,7 +34,7 @@ options:
 ```
 
 
-###postgres tests
+### postgres tests
 
 
 ```

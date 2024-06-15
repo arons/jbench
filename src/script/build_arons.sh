@@ -19,5 +19,3 @@ done
 $JAVA_HOME/bin/javac -cp "${LIB_LIST}" -sourcepath ../main/ ../main/ch/arons/jbench/Main.java -d ../../target/classes
 
 $JAVA_HOME/bin/native-image  -cp "${LIB_LIST}" ch.arons.jbench.Main -o ../../target/bin/jbench
-
-# ../../target/bin/jbench pg jdbc:postgresql://pg01.logobject.ch:5432/mlogtest mlogtest

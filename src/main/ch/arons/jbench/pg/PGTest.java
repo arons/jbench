@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 import org.postgresql.Driver;
 
+import ch.arons.jbench.pg.test.PGParameterCheck;
+
 
 public class PGTest {
 
@@ -22,8 +24,8 @@ public class PGTest {
     }
 
     public void params() {
-        // TODO Auto-generated method stub
-        
+        PGParameterCheck t = new PGParameterCheck(db);
+        t.checks();
     }
 
     public void prepare() {

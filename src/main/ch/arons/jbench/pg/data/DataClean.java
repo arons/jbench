@@ -8,7 +8,7 @@ import java.util.Date;
 import ch.arons.jbench.pg.DB;
 
 /**
- * Clen data created.
+ * Clean data created.
  */
 public class DataClean {
     private DB db;

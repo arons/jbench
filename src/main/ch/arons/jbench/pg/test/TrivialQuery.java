@@ -23,7 +23,7 @@ public class TrivialQuery extends SingleConDBTest {
     protected void test(Connection c) throws SQLException {
         
         
-        try (PreparedStatement ps = c.prepareStatement("select 1 ");) {
+        try (PreparedStatement ps = c.prepareStatement(" select 1 ");) {
             ResultSet rs = null;
             
             long totStart = System.currentTimeMillis();

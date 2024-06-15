@@ -7,6 +7,7 @@
 	<property file="${user.home}/user.properties" />
 	
 	<path id="compiletime-deps">
+		<pathelement path="./lib/postgres/postgresql-42.7.3.jar"/>
     </path>
 	
     <target name="ci" description="ci">

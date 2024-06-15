@@ -1,0 +1,8 @@
+This file contains a list of all third-party libraries that are used in this project.
+
+
+Libraries
+=========
+
+File                                    License        Compiletime    Runtime    Modified   URL
+lib/postgres/postgresql-42.7.3.jar      BSD 2-Clause   yes            yes        yes        https://github.com/pgjdbc/pgjdbc/releases/tag/REL42.7.3 

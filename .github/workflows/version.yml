@@ -1,4 +1,4 @@
-name: version bin
+name: create version release
 on:
   push:
     tags:

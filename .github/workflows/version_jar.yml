@@ -5,7 +5,9 @@ on:
       - "v*"
     branches:
       - 'master'
-
+permissions:
+  contents: write
+    
 jobs:
   build-jar-job:
     name: 'Version Jar'
@@ -21,11 +23,11 @@ jobs:
       - name: Run the Ant ci target
         run: ant -noinput -buildfile build.xml dist
       - name: Upload binaries to release
-         uses: svenstaro/upload-release-action@v2
-         with:
-           repo_token: ${{ secrets.GITHUB_TOKEN }}
-           file: target/dist/jbench.jar
-           asset_name: jbench.jar
-           asset_content_type: application/zip
-           tag: ${{ github.ref }}
-           overwrite: true
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: target/dist/jbench.jar
+          asset_name: jbench.jar
+          asset_content_type: application/zip
+          tag: ${{ github.ref }}
+          overwrite: true

@@ -2,7 +2,7 @@ name: version jar
 on:
   push:
     tags:
-      - "vj*"
+      - "v*"
     branches:
       - 'master'
 
@@ -20,7 +20,14 @@ jobs:
           architecture: x64
       - name: Run the Ant ci target
         run: ant -noinput -buildfile build.xml dist
-      - uses: actions/upload-artifact@v3
-        with:
-          name: jbench.jar
-          path: target/dist/jbench.jar
+      - name: Upload Release Asset
+          id: upload-release-asset 
+          uses: actions/upload-release-asset@v1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            tag_name: ${{ github.ref }}
+            release_name: Release ${{ github.ref }} 
+            asset_path: target/dist/jbench.jar
+            asset_name: jbench.jar
+            asset_content_type: application/ZIP

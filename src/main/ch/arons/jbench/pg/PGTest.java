@@ -11,6 +11,8 @@ import ch.arons.jbench.pg.test.DBTest;
 import ch.arons.jbench.pg.test.OpenLatency;
 import ch.arons.jbench.pg.test.PGParameterCheck;
 import ch.arons.jbench.pg.test.PrintInfo;
+import ch.arons.jbench.pg.test.Statistics;
+import ch.arons.jbench.pg.test.TrivialQuery;
 
 /**
  * Perform pg tests.
@@ -50,6 +52,8 @@ public class PGTest {
         DBTest[] tests = {
             new PrintInfo(db),
             new OpenLatency(db),
+            new Statistics(db),
+            new TrivialQuery(db)
         };
         for (DBTest t : tests) {
             t.test();

@@ -6,7 +6,6 @@ import ch.arons.jbench.io.IO;
 public class Main {
 
     private static void printHelp() {
-        Print.logVersion();
         System.err.println("Usage: jbench (info,io) ");
         System.err.println("commands:");
         System.err.println(" info :  print some system info");
@@ -14,17 +13,16 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
+        Print.logVersion();
+        
+        
         if(args == null || args.length < 1) {
             printHelp();
             System.exit(0);
         }
 
-        for (int i = 0; i < args.length; i++) {
-            if ("-h".equals(args[i]) || "--help".equals(args[i])) {
-                printHelp();
-                System.exit(0);
-            }
+        if("-h".equals(args[0]) || "--help".equals(args[0])) {
+            Info.main(args);
         }
         
         if("info".equals(args[0])) {

@@ -17,7 +17,7 @@ public class IO {
     static final DecimalFormat DF = new DecimalFormat("###.##");
     
     private static void printHelp() {
-        Print.logVersion();
+        System.err.println("jbench io");
         System.err.println("options:");
         System.err.println(" block_size=8 (kb)");
         System.err.println(" numOfBlocks=256");

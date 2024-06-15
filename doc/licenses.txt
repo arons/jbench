@@ -4,5 +4,6 @@ This file contains a list of all third-party libraries that are used in this pro
 Libraries
 =========
 
-File                                    License        Compiletime    Runtime    Modified   URL
-lib/postgres/postgresql-42.7.3.jar      BSD 2-Clause   yes            yes        yes        https://github.com/pgjdbc/pgjdbc/releases/tag/REL42.7.3 
+File                                      License        Compiletime    Runtime    Modified   URL
+lib/postgres/postgresql-42.7.3.jar        BSD 2-Clause   yes            yes        yes        https://github.com/pgjdbc/pgjdbc/releases/tag/REL42.7.3 
+lib/checkstyle/checkstyle-10.17.0-all.jar LGPL           no             no         no         https://github.com/checkstyle/checkstyle

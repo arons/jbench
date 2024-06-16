@@ -86,7 +86,7 @@ create table jbench.tbbm_child (
   parent_id bigint not null,
   data1 bigint null,
   data2 bigint null,
-  data3 date    null,
+  data3 timestamptz null,
   data4 text null,
   constraint pk_bmchld primary key (id),
   constraint fk_bmchldprt foreign key (parent_id) references jbench.tbbm_parent (id)
@@ -102,16 +102,6 @@ create table jbench.tbbm_child (
             System.out.printf("Create indexes\n");
             DataRun.executeQuery( conn, "create index i_fk_bmchldprt on jbench.tbbm_child(parent_id, id)");
             DataRun.executeQuery( conn, "create index i_bmchld_d3 on jbench.tbbm_child(data3)");
-            
-            
-            System.out.printf("Create temp table\n");
-            DataRun.executeQuery(conn, """ 
-CREATE TEMPORARY TABLE IF NOT EXISTS tbbm_tmp_intarray(
-    parameter_name text not null,
-    column_value bigint not null
-)on commit drop                       
-                """);
-            
             
             String sqlInsertParent = " insert into jbench.tbbm_parent (id, data1, data2, data3) values (?, ?, ?, ?)";
             String sqlInsertChild = " insert into jbench.tbbm_child(id, parent_id, data1, data2, data3, data4) values (nextval('jbench.tbbm_child_seq'), ?, ?, ?, ?, ?) ";

@@ -2,9 +2,18 @@
 Jbench is a simple benchmark tool written in java.
 
 ### download latest version
+
+as binaries:
 ```
 curl -L  -o jbench  'https://github.com/arons/jbench/releases/download/v_1.0/jbench' && chmod 775 jbench
 ```
+
+as jar:
+```
+curl -L  -o jbench.jar  'https://github.com/arons/jbench/releases/download/v_1.0/jbench.jar'
+```
+Note: in case you want o use the jar, for postgres test, you need to add the postgresql jdbc jar in your classpath.
+
 
 ### help
 ```

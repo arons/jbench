@@ -36,7 +36,7 @@ public class BlobBandwidth extends SingleConDBTest {
         /*
          * upload
          */
-        try (PreparedStatement ps = c.prepareStatement("insert into tbbm_lob (id, doc) values (?, ?)");) {
+        try (PreparedStatement ps = c.prepareStatement("insert into jbench.tbbm_lob (id, doc) values (?, ?)");) {
             long start = System.currentTimeMillis();
             ps.setString(1, id2);
             ps.setNull(2, Types.OTHER);
@@ -58,7 +58,7 @@ public class BlobBandwidth extends SingleConDBTest {
         /*
          * in db copy
          */
-        try (PreparedStatement ps = c.prepareStatement("update tbbm_lob set doc = (select doc from tbbm_lob where id=?) where id=?");) {
+        try (PreparedStatement ps = c.prepareStatement("update jbench.tbbm_lob set doc = (select doc from jbench.tbbm_lob where id=?) where id=?");) {
             long start = System.currentTimeMillis();
             ps.setString(1, id);
             ps.setString(2, id2);
@@ -71,7 +71,7 @@ public class BlobBandwidth extends SingleConDBTest {
         /*
          * test download
          */
-        try (PreparedStatement ps = c.prepareStatement("select doc from tbbm_lob where id = ?");) {
+        try (PreparedStatement ps = c.prepareStatement("select doc from jbench.tbbm_lob where id = ?");) {
             long start = System.currentTimeMillis();
             ps.setString(1, id2);
             ResultSet rs = ps.executeQuery();
@@ -96,7 +96,7 @@ public class BlobBandwidth extends SingleConDBTest {
         /*
          * clean db
          */
-        try (PreparedStatement ps = c.prepareStatement("delete from tbbm_lob where id = ?");) {
+        try (PreparedStatement ps = c.prepareStatement("delete from jbench.tbbm_lob where id = ?");) {
             ps.setString(1, id);
             ps.executeUpdate();
             ps.setString(1, id2);

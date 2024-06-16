@@ -93,7 +93,7 @@ public class SingleClient implements Runnable {
 
                 int parentId = -1;
                 int randomChild = minId + random.nextInt(maxId - minId);
-                try (PreparedStatement ps = c.prepareStatement("select * from tbbm_child where id = ?")) {
+                try (PreparedStatement ps = c.prepareStatement("select * from jbench.tbbm_child where id = ?")) {
                     ps.setFetchSize(1024);
                     ps.setInt(1, randomChild);
                     long startMs = System.currentTimeMillis();
@@ -114,7 +114,7 @@ public class SingleClient implements Runnable {
                     continue;
                 }
 
-                try (PreparedStatement ps = c.prepareStatement("update tbbm_child set data4 = ? where id = ? ")) {
+                try (PreparedStatement ps = c.prepareStatement("update jbench.tbbm_child set data4 = ? where id = ? ")) {
                     ps.setFetchSize(1024);
                     ps.setString(1, getRandomString(10));
                     ps.setInt(2, randomChild);
@@ -128,7 +128,8 @@ public class SingleClient implements Runnable {
                     throw new RuntimeException(e);
                 }
 
-                try (PreparedStatement pchild = c.prepareStatement( " insert into tbbm_child(id, parent_id, data1, data2, data3, data4) values (nextval('tbbm_child_seq'), ?, ?, ?, ?, ?) ")) {
+                try (PreparedStatement pchild = c.prepareStatement( 
+                     " insert into jbench.tbbm_child(id, parent_id, data1, data2, data3, data4) values (nextval('jbench.tbbm_child_seq'), ?, ?, ?, ?, ?) ")) {
                     GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone("Europe/Zurich"));
                     try {
                         cal.setTime(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse("1974-01-01T00:00:00"));

@@ -89,6 +89,6 @@ public class PG {
         }
         long endMs = System.currentTimeMillis();
         System.out.println("End: " + new Date());
-        System.out.printf("Duration s: %s", (endMs - startMs) / 1000);
+        System.out.printf("Duration s: %s\n", (endMs - startMs) / 1000);
     }
 }

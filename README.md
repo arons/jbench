@@ -3,13 +3,13 @@ Jbench is a simple benchmark tool written in java.
 
 ### download latest version
 ```
-curl -L  -o jbench  'https://github.com/arons/jbench/releases/download/v_1.0b/jbench' && chmod 775 jbench
+curl -L  -o jbench  'https://github.com/arons/jbench/releases/download/v_ 1.0/jbench' && chmod 775 jbench
 ```
 
 ### help
 ```
 $ ./jbench -h
-jbench 1.0b
+jbench  1.0
 Usage: jbench (info,io) 
 commands:
  info :  print some system info
@@ -23,7 +23,7 @@ $ ./jbench info
 ```
 
 ```
-jbench 1.0b
+jbench  1.0
 Name: Linux
 Version: 6.5.0-35-generic
 Arch: amd64
@@ -46,7 +46,7 @@ Usable space (MB): 778150
 ### test local disk io
 ```
 $ ./jbench io -h
-jbench 1.0b
+jbench  1.0
 jbench io
 options:
  block_size=8 (kb)
@@ -54,7 +54,7 @@ options:
 ```
 
 ```
-jbench 1.0b
+jbench  1.0
 Sun Jun 16 10:57:56 CEST 2024
 Host jvm processors: 8 
 Total mem for JVM (MB): 12678 
@@ -79,7 +79,7 @@ read IO is 2545.312961969098 MB/s
 
 ```
 $ ./jbench pg -h
-jbench 1.0b
+jbench  1.0
 jbench pg url user password (help|prepare|test|clean|params)
 
 ```
@@ -87,7 +87,7 @@ jbench pg url user password (help|prepare|test|clean|params)
 ```
 $ ./jbench pg jdbc:postgresql://localhost:5432/postgres arons nopw  params
 
-jbench 1.0b
+jbench  1.0
 Host jvm processors: 8 
 Total mem for JVM (MB): 12678 
 Start: Sun Jun 16 11:02:13 CEST 2024
@@ -116,7 +116,7 @@ Duration s: 0
 ```
 $ ./jbench pg jdbc:postgresql://localhost:5432/postgres arons nopw  prepare
 
-jbench 1.0b
+jbench  1.0
 Host jvm processors: 8 
 Total mem for JVM (MB): 12678 
 Start: Sun Jun 16 11:03:09 CEST 2024
@@ -140,7 +140,7 @@ Duration s: 24
 ```
 $ ./jbench pg jdbc:postgresql://localhost:5432/postgres arons nopw  test
 
-jbench 1.0b
+jbench  1.0
 Host jvm processors: 8 
 Total mem for JVM (MB): 12678 
 Start: Sun Jun 16 11:14:37 CEST 2024
@@ -206,7 +206,7 @@ Duration s: 47
 
 ```
 $ ./jbench pg jdbc:postgresql://localhost:5432/postgres arons nopw  clean
-jbench 1.0b
+jbench  1.0
 Host jvm processors: 8 
 Total mem for JVM (MB): 12678 
 Start: Sun Jun 16 11:15:51 CEST 2024

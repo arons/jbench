@@ -17,6 +17,7 @@ import ch.arons.jbench.pg.test.PrintInfo;
 import ch.arons.jbench.pg.test.Statistics;
 import ch.arons.jbench.pg.test.TemporaryTable;
 import ch.arons.jbench.pg.test.TrivialQuery;
+import ch.arons.jbench.pg.test.parallel.ParallelOperations;
 
 /**
  * Perform pg tests.
@@ -61,7 +62,9 @@ public class PGTest {
             new BlobBandwidth(db),
             new LargeTable(db),
             new TemporaryTable(db),
-            new ArrayQuery(db)
+            new ArrayQuery(db),
+            
+            new ParallelOperations(db, additional)
         };
         for (DBTest t : tests) {
             t.test();

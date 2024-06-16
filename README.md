@@ -4,11 +4,13 @@ Jbench is a simple benchmark tool written in java.
 ### download latest version
 
 as binaries (created with GraalVM for arch x86_64):
+
 ```
 curl -L  -o jbench  'https://github.com/arons/jbench/releases/download/v_1.0/jbench' && chmod 775 jbench
 ```
 
 as jar:
+
 ```
 curl -L  -o jbench.jar  'https://github.com/arons/jbench/releases/download/v_1.0/jbench.jar'
 ```

@@ -23,13 +23,15 @@ public class LargeTable extends SingleConDBTest {
     
     @Override
     protected void test(Connection c) throws SQLException {
-        System.out.printf("Select from larg table:\n");
         
-        try (PreparedStatement ps = c.prepareStatement("select * from jbench.tbbm_child where data3 between ? and ? fetch first 1000 rows only");) {
+        System.out.printf("Select from larg table:\n");
+        try (PreparedStatement ps = c.prepareStatement("select * from jbench.tbbm_child where data3 between ? and ? ");) {
             
             long start = System.currentTimeMillis();
+            
+            //all start from 0 except day of month
             ps.setDate(1, new Date(1980 - 1900, 1 - 1, 1));
-            ps.setDate(2, new Date(1980 - 1900, 12 - 1, 31));
+            ps.setDate(2, new Date(1981 - 1900, 1 - 1, 1));
             ps.setFetchSize(256);
             ResultSet rs = ps.executeQuery();
             long duration = System.currentTimeMillis() - start;
@@ -48,5 +50,8 @@ public class LargeTable extends SingleConDBTest {
             
             System.out.printf("  Rows: %d\n", count);
         } 
+        
+        
+
     }
 }

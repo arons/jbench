@@ -38,6 +38,7 @@ public class SingleClient implements Runnable {
 
     public long operations; // approximations
     public long statements;
+    public long skipped;
     public long durationSelect;
     public long durationUpdate;
     public long durationInsert;
@@ -72,6 +73,15 @@ public class SingleClient implements Runnable {
         long startExtMs = System.currentTimeMillis();
 
         Random random = new Random();
+        
+        GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone("Europe/Zurich"));
+        try {
+            cal.setTime(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse("1974-01-01T00:00:00"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        
+        
 
         try (Connection c = db.getConnection()) {
             c.setAutoCommit(false);
@@ -111,6 +121,7 @@ public class SingleClient implements Runnable {
                 }
 
                 if (parentId < 0) {
+                    skipped++;
                     continue;
                 }
 
@@ -130,12 +141,7 @@ public class SingleClient implements Runnable {
 
                 try (PreparedStatement pchild = c.prepareStatement( 
                      " insert into jbench.tbbm_child(id, parent_id, data1, data2, data3, data4) values (nextval('jbench.tbbm_child_seq'), ?, ?, ?, ?, ?) ")) {
-                    GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone("Europe/Zurich"));
-                    try {
-                        cal.setTime(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse("1974-01-01T00:00:00"));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                    
 
                     Timestamp fixTimestamp = new Timestamp(cal.getTimeInMillis());
                     cal.add(Calendar.DAY_OF_MONTH, 1);

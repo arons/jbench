@@ -96,12 +96,7 @@ create table jbench.tbbm_child (
             
             DataRun.executeQuery( conn, "create sequence jbench.tbbm_child_seq cache 1000");
             
-            /*
-             * Create indexes
-             */
-            System.out.printf("Create indexes\n");
-            DataRun.executeQuery( conn, "create index i_fk_bmchldprt on jbench.tbbm_child(parent_id, id)");
-            DataRun.executeQuery( conn, "create index i_bmchld_d3 on jbench.tbbm_child(data3)");
+            
             
             String sqlInsertParent = " insert into jbench.tbbm_parent (id, data1, data2, data3) values (?, ?, ?, ?)";
             String sqlInsertChild = " insert into jbench.tbbm_child(id, parent_id, data1, data2, data3, data4) values (nextval('jbench.tbbm_child_seq'), ?, ?, ?, ?, ?) ";
@@ -146,26 +141,26 @@ create table jbench.tbbm_child (
                         pchild.setString(5, getRandomString(10));
                         pchild.addBatch();
                     }
-                }
-                
-                int[] results = pparent.executeBatch();
-                //check results
-                for (int k = 0; k < results.length; k++) {
-                    if (results[k] == Statement.EXECUTE_FAILED) {
-                        System.err.println("Data preparation fail! Parents");
+                    
+                    
+                    
+                    
+                    if ( i % 1000 == 0 ) {
+                        batchExecute(pparent, pchild);
                     }
                 }
                 
-                results = pchild.executeBatch();
-                //check results
-                for (int k = 0; k < results.length; k++) {
-                    if (results[k] == Statement.EXECUTE_FAILED) {
-                        System.err.println("Data preparation fail! Child");
-                    }
-                }
+                batchExecute(pparent, pchild);
             }
             System.out.printf("Creating data done ms: %d\n", (System.currentTimeMillis() - createStartMs));
             
+            
+            /*
+             * Create indexes
+             */
+            System.out.printf("Create indexes\n");
+            DataRun.executeQuery( conn, "create index i_fk_bmchldprt on jbench.tbbm_child(parent_id, id)");
+            DataRun.executeQuery( conn, "create index i_bmchld_d3 on jbench.tbbm_child(data3)");
             
             
             System.out.printf("Perform statistics\n");
@@ -199,6 +194,28 @@ create table jbench.tbbm_child (
     }
     
     
+    /**
+     *  batch execution of inserts.
+     */
+    private void batchExecute(PreparedStatement pparent, PreparedStatement pchild) throws SQLException {
+        int[] results = pparent.executeBatch();
+        //check results
+        for (int k = 0; k < results.length; k++) {
+            if (results[k] == Statement.EXECUTE_FAILED) {
+                System.err.println("Data preparation fail! Parents");
+            }
+        }
+        
+        results = pchild.executeBatch();
+        //check results
+        for (int k = 0; k < results.length; k++) {
+            if (results[k] == Statement.EXECUTE_FAILED) {
+                System.err.println("Data preparation fail! Child");
+            }
+        }
+    }
+
+
 
     /**
      * Creates a random string.

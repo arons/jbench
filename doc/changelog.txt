@@ -1,1 +1,4 @@
+version 1.1
+- new tests and result printout for parallel execution 
+
 version 1.0

@@ -31,4 +31,5 @@ $JAVA_HOME/bin/native-image \
     --no-server \
     --report-unsupported-elements-at-runtime \
     "-H:IncludeResources=org/hsqldb/.*\.properties" "-H:IncludeResources=org/hsqldb/.*\.sql" \
+    -march=compatibility \
     -cp "${LIB_LIST}" ch.arons.jbench.Main -o ../../target/bin/jbench

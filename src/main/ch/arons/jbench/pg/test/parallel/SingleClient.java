@@ -86,7 +86,7 @@ public class SingleClient implements Runnable {
         try (Connection c = db.getConnection()) {
             c.setAutoCommit(false);
 
-            while (operations <= numberOperations) {
+            while (true) {
                 
                 operations++;
                 

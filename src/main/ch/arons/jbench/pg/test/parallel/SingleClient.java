@@ -163,6 +163,7 @@ public class SingleClient implements Runnable {
                     throw new RuntimeException(e);
                 }
 
+                
             }
         } catch (SQLException e) {
             //nothing to do

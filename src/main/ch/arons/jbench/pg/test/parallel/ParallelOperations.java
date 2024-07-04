@@ -18,7 +18,6 @@ import ch.arons.jbench.utils.TestResul;
 public class ParallelOperations extends DBTest {
 
     
-    private static final int numberOperations = 5000;
     private static final int commitOperations = 10;
     private static final int runtimeSeconds = 10;
     private int maxParallel = 64;
@@ -75,8 +74,8 @@ public class ParallelOperations extends DBTest {
         
         ExecutorService exePull = Executors.newFixedThreadPool(numberThread);
         
-        System.out.printf(" Client size:%d, max client operations: %d, commit operation:%d,  max running seconds: %d. ", 
-                          numberThread, numberOperations, commitOperations, runtimeSeconds);
+        System.out.printf(" Client size:%d, running seconds: %d. ", 
+                          numberThread, runtimeSeconds);
         
         
         List<SingleClient> clientList = new ArrayList<>(numberThread);
@@ -84,7 +83,7 @@ public class ParallelOperations extends DBTest {
         int chunk = ( DataCreate.p_number * DataCreate.c_number ) / maxParallel;
         // int chunk = ( DataCreate.p_number * DataCreate.c_number ) / numberThread;
         for (int i = 0; i < numberThread; i++) {
-            SingleClient client = new SingleClient(db, i * chunk, (i + 1) * chunk, numberOperations, commitOperations);
+            SingleClient client = new SingleClient(db, i * chunk, (i + 1) * chunk, commitOperations);
             clientList.add(client);
             exePull.submit(client);
         }
@@ -95,8 +94,6 @@ public class ParallelOperations extends DBTest {
             exePull.shutdown();
             if (!exePull.awaitTermination(runtimeSeconds, TimeUnit.SECONDS)) {
                 System.out.printf(" shutdown ...");
-                
-                
                 for (SingleClient c :  clientList) {
                     c.interrupt();
                 }

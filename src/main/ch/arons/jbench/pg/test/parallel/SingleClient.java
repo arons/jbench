@@ -30,7 +30,6 @@ public class SingleClient implements Runnable {
     private Random random = new Random();
     
     DB db;
-    int numberOperations;
     int commitOperations;
     int minId;
     int maxId;
@@ -54,13 +53,12 @@ public class SingleClient implements Runnable {
      * @param numberOperations max number of operation
      * @param commitOperations commit every
      */
-    public SingleClient(DB db, int minId, int maxId, int numberOperations, int commitOperations) {
+    public SingleClient(DB db, int minId, int maxId, int commitOperations) {
         this.db = db;
         
         this.minId = minId;
         this.maxId = maxId;
         
-        this.numberOperations = numberOperations;
         this.commitOperations = commitOperations;
     }
 

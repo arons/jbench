@@ -16,15 +16,11 @@ import ch.arons.jbench.utils.TestResul;
  * It start threads that simulate concurrency against the db.
  */
 public class ParallelOperations extends DBTest {
-
-    
-    private static final int commitOperations = 1;
     private static final int runtimeSeconds = 10;
-    private int maxParallel = 16;
+    private int maxParallel = 64;
 
     /**
      * Init.
-     * 
      */
     public ParallelOperations(DB db, String additionalParam) {
         super(db);
@@ -83,7 +79,7 @@ public class ParallelOperations extends DBTest {
         int chunk = ( DataCreate.p_number * DataCreate.c_number ) / maxParallel;
         // int chunk = ( DataCreate.p_number * DataCreate.c_number ) / numberThread;
         for (int i = 0; i < numberThread; i++) {
-            SingleClient client = new SingleClient(db, i * chunk, (i + 1) * chunk, commitOperations);
+            SingleClient client = new SingleClient(db, i * chunk, (i + 1) * chunk);
             clientList.add(client);
             exePull.submit(client);
         }

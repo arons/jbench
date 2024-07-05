@@ -16,13 +16,12 @@ import ch.arons.jbench.pg.DB;
 
 /**
  * Run single client operation.
- * 
+ * Is tpcb-like client, it perform 1 transaction with 3 select 1 update and 1 insert.
  * <p>
- * It start a transaction and executes in loops:
- *  - commit every commitOperations
- *  - select from big table by id index
- *  - update text in big table selecting by id index
- *  - insert into big table new record
+ *  - select from big table by id index (3 times)
+ *  - update text in big table selecting by id index (1 time)
+ *  - insert into big table new record ( 1 time)
+ *  - commit transaction
  * </p>
  */
 public class SingleClient implements Runnable {
@@ -30,7 +29,6 @@ public class SingleClient implements Runnable {
     private Random random = new Random();
     
     DB db;
-    int commitOperations;
     int minId;
     int maxId;
     boolean requestInterrupt;
@@ -53,13 +51,10 @@ public class SingleClient implements Runnable {
      * @param numberOperations max number of operation
      * @param commitOperations commit every
      */
-    public SingleClient(DB db, int minId, int maxId, int commitOperations) {
+    public SingleClient(DB db, int minId, int maxId) {
         this.db = db;
-        
         this.minId = minId;
         this.maxId = maxId;
-        
-        this.commitOperations = commitOperations;
     }
 
     public void interrupt() {

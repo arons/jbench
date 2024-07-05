@@ -18,6 +18,7 @@ import ch.arons.jbench.pg.test.Statistics;
 import ch.arons.jbench.pg.test.TemporaryTable;
 import ch.arons.jbench.pg.test.TrivialQuery;
 import ch.arons.jbench.pg.test.parallel.ParallelOperations;
+import ch.arons.jbench.pg.test.parallel.ParallelOperationsSpecial;
 
 /**
  * Perform pg tests.
@@ -69,6 +70,16 @@ public class PGTest {
         for (DBTest t : tests) {
             t.test();
         }
+    }
+
+    public void special() {
+        ParallelOperationsSpecial t = new ParallelOperationsSpecial(db, additional);
+        t.test();
+    }
+
+    public void runClient() {
+        ParallelOperations t = new ParallelOperations(db, additional);
+        t.test();
     }
 
 

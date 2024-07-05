@@ -35,7 +35,7 @@ public class SingleClient implements Runnable {
     int maxId;
     boolean requestInterrupt;
 
-    public long operations; // approximations
+    public long trnasction; // approximations
     public long statements;
     public long skipped;
     public long durationSelect;
@@ -68,10 +68,7 @@ public class SingleClient implements Runnable {
 
     @Override
     public void run() {
-        long startExtMs = System.currentTimeMillis();
-
         Random random = new Random();
-        
         GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone("Europe/Zurich"));
         try {
             cal.setTime(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse("1974-01-01T00:00:00"));
@@ -80,43 +77,44 @@ public class SingleClient implements Runnable {
         }
         
         
-
+        long startExtMs = System.currentTimeMillis();
         try (Connection c = db.getConnection()) {
             c.setAutoCommit(false);
-
+            startExtMs = System.currentTimeMillis();
+            
             while (true) {
                 
-                operations++;
-                
-                if (requestInterrupt || (operations % commitOperations == 0)) {
-                    long startMs = System.currentTimeMillis();
-                    c.commit();
-                    long durationMs = System.currentTimeMillis() - startMs;
-                    durationCommit += durationMs;
-
-                    if (requestInterrupt) {
-                        break;
-                    }
+                if (requestInterrupt) {
+                    break;
                 }
+                
+                trnasction++;
+                
 
                 int parentId = -1;
+                
                 int randomChild = minId + random.nextInt(maxId - minId);
-                try (PreparedStatement ps = c.prepareStatement("select * from jbench.tbbm_child where id = ?")) {
-                    ps.setFetchSize(1024);
-                    ps.setInt(1, randomChild);
-                    long startMs = System.currentTimeMillis();
-                    ResultSet rs = ps.executeQuery();
-                    while (rs.next()) {
-                        parentId = rs.getInt("parent_id");
+                
+                for(int i=1; i<3; i++) {
+                    randomChild = minId + random.nextInt(maxId - minId);
+                    try (PreparedStatement ps = c.prepareStatement("select * from jbench.tbbm_child where id = ?")) {
+                        ps.setFetchSize(1024);
+                        ps.setInt(1, randomChild);
+                        long startMs = System.currentTimeMillis();
+                        ResultSet rs = ps.executeQuery();
+                        while (rs.next()) {
+                            parentId = rs.getInt("parent_id");
+                        }
+                        rs.close();
+                        long durationMs = System.currentTimeMillis() - startMs;
+                        statements++;
+                        durationSelect += durationMs;
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        throw new RuntimeException(e);
                     }
-                    rs.close();
-                    long durationMs = System.currentTimeMillis() - startMs;
-                    statements++;
-                    durationSelect += durationMs;
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    throw new RuntimeException(e);
                 }
+                
 
                 if (parentId < 0) {
                     skipped++;
@@ -161,6 +159,14 @@ public class SingleClient implements Runnable {
                     throw new RuntimeException(e);
                 }
 
+                
+                
+                long startMs = System.currentTimeMillis();
+                c.commit();
+                long durationMs = System.currentTimeMillis() - startMs;
+                durationCommit += durationMs;
+                
+                
                 
             }
         } catch (SQLException e) {

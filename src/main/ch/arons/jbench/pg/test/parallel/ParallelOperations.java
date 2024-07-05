@@ -18,9 +18,9 @@ import ch.arons.jbench.utils.TestResul;
 public class ParallelOperations extends DBTest {
 
     
-    private static final int commitOperations = 10;
+    private static final int commitOperations = 1;
     private static final int runtimeSeconds = 10;
-    private int maxParallel = 64;
+    private int maxParallel = 16;
 
     /**
      * Init.
@@ -115,12 +115,13 @@ public class ParallelOperations extends DBTest {
         
         TestResul result = new TestResul();
         result.numberThread = numberThread;
+        result.durationRuntime = durationPoolmS;
         
         for (SingleClient c :  clientList) {
             result.addClient(c);
     
         }
-        result.durationRuntime = Math.max(result.durationRuntime, durationPoolmS);
+        
         
         if ( durationPoolmS > 1000 ) {
             System.out.printf(" statements:%d  per seconds:%d\n", result.statements, (result.statements / (durationPoolmS / 1000)) );

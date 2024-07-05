@@ -84,6 +84,14 @@ public class PG {
                 pgtest.run();
             }
             
+            if ("paral".equalsIgnoreCase(command)) {
+                pgtest.runClient();
+            }
+            
+            if ("special".equalsIgnoreCase(command)) {
+                pgtest.special();
+            }
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }

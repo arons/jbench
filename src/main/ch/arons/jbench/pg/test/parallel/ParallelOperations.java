@@ -70,8 +70,7 @@ public class ParallelOperations extends DBTest {
         
         ExecutorService exePull = Executors.newFixedThreadPool(numberThread);
         
-        System.out.printf(" Client size:%d, running seconds: %d. ", 
-                          numberThread, runtimeSeconds);
+        System.out.printf(" Client size:%d, running seconds: %d. ", numberThread, runtimeSeconds);
         
         
         List<SingleClient> clientList = new ArrayList<>(numberThread);
@@ -85,9 +84,11 @@ public class ParallelOperations extends DBTest {
         }
         
         System.out.printf(" running ...");
+        exePull.shutdown();
         long startMs = System.currentTimeMillis();
+        
         try {
-            exePull.shutdown();
+            
             if (!exePull.awaitTermination(runtimeSeconds, TimeUnit.SECONDS)) {
                 System.out.printf(" shutdown ...");
                 for (SingleClient c :  clientList) {
@@ -120,9 +121,9 @@ public class ParallelOperations extends DBTest {
         
         
         if ( durationPoolmS > 1000 ) {
-            System.out.printf(" statements:%d  per seconds:%d\n", result.statements, (result.statements / (durationPoolmS / 1000)) );
+            System.out.printf(" transactions: %d statements:%d  per seconds:%d\n", result.transaction, result.statements, (result.statements / (durationPoolmS / 1000)) );
         } else {
-            System.out.printf(" statements:%d  \n", result.statements );
+            System.out.printf(" transactions: %d statements:%d  \n", result.transaction, result.statements );
         }
         
         

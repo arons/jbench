@@ -88,10 +88,6 @@ public class PG {
                 pgtest.runClient();
             }
             
-            if ("special".equalsIgnoreCase(command)) {
-                pgtest.special();
-            }
-            
         } catch (SQLException e) {
             e.printStackTrace();
         }

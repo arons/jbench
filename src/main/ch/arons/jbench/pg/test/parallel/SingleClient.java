@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Random;
 import java.util.TimeZone;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import ch.arons.jbench.pg.DB;
 
@@ -31,9 +32,9 @@ public class SingleClient implements Runnable {
     DB db;
     int minId;
     int maxId;
-    boolean requestInterrupt;
+    AtomicBoolean requestInterrupt;
 
-    public long trnasction; // approximations
+    public long transaction; // approximations
     public long statements;
     public long skipped;
     public long durationSelect;
@@ -48,17 +49,16 @@ public class SingleClient implements Runnable {
      * @param db to connect
      * @param minId big table min id
      * @param maxId big table max id
-     * @param numberOperations max number of operation
-     * @param commitOperations commit every
      */
     public SingleClient(DB db, int minId, int maxId) {
         this.db = db;
         this.minId = minId;
         this.maxId = maxId;
+        this.requestInterrupt = new AtomicBoolean(false);
     }
 
     public void interrupt() {
-        requestInterrupt = true;
+        requestInterrupt.set(true);
     }
 
     @Override
@@ -79,18 +79,18 @@ public class SingleClient implements Runnable {
             
             while (true) {
                 
-                if (requestInterrupt) {
+                if (requestInterrupt.get()) {
                     break;
                 }
                 
-                trnasction++;
+                transaction++;
                 
 
                 int parentId = -1;
                 
                 int randomChild = minId + random.nextInt(maxId - minId);
                 
-                for(int i=1; i<3; i++) {
+                for ( int i = 1; i < 3; i++ ) {
                     randomChild = minId + random.nextInt(maxId - minId);
                     try (PreparedStatement ps = c.prepareStatement("select * from jbench.tbbm_child where id = ?")) {
                         ps.setFetchSize(1024);

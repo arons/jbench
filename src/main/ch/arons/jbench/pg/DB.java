@@ -36,6 +36,9 @@ public class DB {
          * https://jdbc.postgresql.org/documentation/head/connect.html?spm=a2c65.11461447.0.0.717db801z6JtyG
          */
         dbprops.setProperty("reWriteBatchedInserts", "true");
+        
+        //dbprops.setProperty("statementCacheSize", "0");
+        
 
     }
     

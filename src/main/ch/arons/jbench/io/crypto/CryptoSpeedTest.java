@@ -55,7 +55,7 @@ public class CryptoSpeedTest {
             e.printStackTrace();
         }
         long elapsedTime = System.currentTimeMillis() - startTime;
-        System.out.println("Time to generate 1G file: " + elapsedTime + " ms");
+        System.out.println("Time to generate "+filesize+"MB file: " + elapsedTime + " ms");
         
         // Step 2: Calculate SHA-256 of the file
         startTime = System.currentTimeMillis();

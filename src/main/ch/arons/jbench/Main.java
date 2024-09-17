@@ -2,6 +2,7 @@ package ch.arons.jbench;
 
 import ch.arons.jbench.info.Info;
 import ch.arons.jbench.io.IO;
+import ch.arons.jbench.io.crypto.CryptoSpeedTest;
 import ch.arons.jbench.pg.PG;
 
 /**
@@ -15,6 +16,7 @@ public class Main {
         System.err.println(" info :  print some system info");
         System.err.println(" io   :  performs file system read/write test");
         System.err.println(" pg   :  performs postgres tests");
+        System.err.println(" cr   :  performs crypto tests");
     }
 
     /**
@@ -46,6 +48,11 @@ public class Main {
         
         if ("pg".equals(args[0])) {
             PG.main(args);
+            System.exit(0);
+        }
+        
+        if ("cr".equals(args[0])) {
+            CryptoSpeedTest.main(args);
             System.exit(0);
         }
         
